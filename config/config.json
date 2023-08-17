@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "postgres_test",
+    "password": "qwerty1111",
+    "database": "test_db",
+    "port": 5432,
+    "host": "my-db-instance.cswihq1yohem.us-east-1.rds.amazonaws.com",
+    "dialect": "postgres"
+  }
+}
