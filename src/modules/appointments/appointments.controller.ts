@@ -2,6 +2,7 @@ import { Body, Controller, ForbiddenException, Post } from '@nestjs/common';
 import { AppointmentsService } from './appointments.service';
 import { BookAppointmentDto } from './dtos/book.appointment.dto';
 import { DoctorsService } from '../doctors/doctors.service';
+import { Appointment } from '../../core/models/appointments/appointment.model';
 
 @Controller('appointments')
 export class AppointmentsController {
@@ -11,7 +12,7 @@ export class AppointmentsController {
     ) {}
 
     @Post('book')
-    async bookAppointment(@Body() body: BookAppointmentDto): Promise<any> {
+    async bookAppointment(@Body() body: BookAppointmentDto): Promise<{ message: string; appointment: Appointment }> {
         const { userId, doctorId, slot } = body;
 
         const isSlotExist = await this.doctorsService.isSlotExists(doctorId, slot);

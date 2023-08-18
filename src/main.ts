@@ -12,6 +12,7 @@ async function bootstrap() {
         }),
     );
 
-    app.listen(3000).then(() => console.log('listening'));
+    const PORT = 3000;
+    app.listen(PORT).then(() => console.log(`Server listening on port ${PORT}`));
 }
 bootstrap();

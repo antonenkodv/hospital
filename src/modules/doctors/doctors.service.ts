@@ -7,13 +7,13 @@ import sequelize from 'sequelize';
 export class DoctorsService {
     constructor(@Inject(DOCTOR_REPOSITORY) private readonly doctorRepository: typeof Doctor) {}
 
-    addSlot(doctorId: string, newSlot: string) {
+    addSlot(doctorId: string, newSlot: string): Promise<[affectedCount: number, affectedRows: Doctor[]]> {
         return this.updateById(doctorId, {
             slots: sequelize.fn('array_append', sequelize.col('slots'), newSlot),
         });
     }
 
-    removeSlot(doctorId: string, removeSlot: string) {
+    removeSlot(doctorId: string, removeSlot: string): Promise<[affectedCount: number, affectedRows: Doctor[]]> {
         return this.updateById(doctorId, {
             slots: sequelize.fn('array_remove', sequelize.col('slots'), removeSlot),
         });
@@ -30,7 +30,7 @@ export class DoctorsService {
         return doctor.slots.includes(slotTimestamp);
     }
 
-    updateById(doctorId: string, data: any) {
+    updateById(doctorId: string, data: any): Promise<[affectedCount: number, affectedRows: Doctor[]]> {
         return this.doctorRepository.update<Doctor>(data, { where: { id: doctorId }, returning: true });
     }
 }
